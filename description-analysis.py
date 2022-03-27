@@ -6,9 +6,9 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
 
 # Levantamos los datos procesados
-
 datos = pd.read_csv('data_publications_process.csv', sep=";")
 
 # Observamos nuestro dataset
@@ -25,6 +25,17 @@ plt.show()
 # Cómo ver outliers
 sns.boxplot(x=datos['precio'])
 plt.show() 
+
+# Variable precio con logartimo ---------------------
+plt.title('Precio')
+plt.xlabel("precio ('000)")
+plt.hist(np.log(datos['precio']), bins = 70)
+plt.show() 
+
+# Cómo ver outliers
+sns.boxplot(x=np.log(datos['precio']))
+plt.show() 
+
 
 # Otra manera de ver outliers para Precio & Año
 fig, ax = plt.subplots(figsize=(16,8))

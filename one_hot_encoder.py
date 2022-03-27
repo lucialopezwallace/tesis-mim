@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Feb 27 10:38:01 2022
 
-@author: lucia.lopez_kavak
-"""
 # Archivo utilizado para crear la función de One Hot Encoding
 ############################################################# 
 

@@ -61,6 +61,7 @@ df_new_ars.info()
 df_new_ars.describe()
 # (35705, 9)
 
+
 # Sumamos la columna modelo al data set público (a partir de los datos privados)
 df_new_ars['modelo'] = pd.NaT
 i = 0

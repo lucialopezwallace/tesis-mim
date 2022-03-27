@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Feb 27 14:27:43 2022
+# Archivo donde desarollamos nuestro modelo de XGBoost
+############################################################# 
 
-@author: lucia.lopez_kavak
-"""
-
+#Importo librerias
 from sklearn.model_selection import train_test_split
 import xgboost as xgb
 from sklearn import metrics
 from sklearn.model_selection import RandomizedSearchCV
 import pandas as pd
+import matplotlib.pyplot as plt
 
-# Changing the file read location to the location of the dataset
+# Levantamos los datos procesados
 df = pd.read_csv('data_ready_to_model.csv', sep=";")
 
 # Observamos nuestro dataset
@@ -24,6 +22,7 @@ x = df.drop('precio',axis=1)
 print(x)
 type(x)
 x = one_hot_encoder(x,10)
+X = pd.DataFrame(x, columns=x.feature_names)
 #separte the predicting attribute into Y for model training 
 y = df['precio']
 
@@ -46,6 +45,13 @@ print('Root Mean Squared Error:', round(np.sqrt(metrics.mean_squared_error(y_tes
 # Root Mean Squared Error: 2.7
 # Root Mean Squared Error: 1.2
 
+
+# Miro la importancia de las variables
+importance = xg_reg.feature_importances_
+x.columns
+figure(figsize=(15, 4.5), dpi=80,)
+plt.bar(x.columns, xg_reg.feature_importances_)
+plt.show()
 
 ########################################## Optimizando los hiperparametros
 ########################################## GridSearchCV
