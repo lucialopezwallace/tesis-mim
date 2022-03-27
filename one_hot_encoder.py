@@ -4,24 +4,15 @@ Created on Sun Feb 27 10:38:01 2022
 
 @author: lucia.lopez_kavak
 """
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 26 20:45:00 2022
+# Archivo utilizado para crear la función de One Hot Encoding
+############################################################# 
 
-@author: lucia.lopez_kavak
-"""
-df = pd.read_csv('data_publications_pesos.csv', sep=";")
-
-# Observamos nuestro dataset
-df.info()
-df.shape
-df.isna().sum().sort_values()
-df = df.drop('title',axis=1)
-
+# Función auxiliar: Toma un df de variables categoricas y selección el top_x de categorias
 def one_hot_top_x(cat_df, variable,top_x_labels):
     for label in top_x_labels:
         cat_df[variable+'_'+label] = np.where(cat_df[variable]==label,1,0)
 
+# Función One Hot Encoder: Toma un DF y le hace una transformación de One Hot Encoder para con las categorias más repetidas 
 def one_hot_encoder(df,top_x):
     # Separo variables categoricas de númericas
     num_cols = df.select_dtypes(include=['float64', 'int']).columns.to_list()
@@ -42,8 +33,3 @@ def one_hot_encoder(df,top_x):
     
     return df
     
-new_df = one_hot_encoder(df,10)  
-
-# Verifico mi one hot encoder
-for col in new_df.columns:
-    print(col,":", len(new_df[col].unique()), 'labels')
