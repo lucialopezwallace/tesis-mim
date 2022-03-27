@@ -5,6 +5,7 @@ Created on Tue Mar  1 10:05:22 2022
 @author: lucia.lopez_kavak
 """
 import pandas as pd
+import numpy as np
 
 # Changing the file read location to the location of the dataset
 df = pd.read_csv('data_publications.csv', sep=";")
