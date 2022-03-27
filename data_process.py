@@ -4,10 +4,36 @@ Created on Tue Mar  1 10:05:22 2022
 
 @author: lucia.lopez_kavak
 """
+
+# Archivo utilizado para procesar la base de datos con la que trabajaremos
+###########################################################################
+ 
+
+# Importo las liberías que utilizaremos
 import pandas as pd
 import numpy as np
 
-# Changing the file read location to the location of the dataset
+##################################### Dataset de datos privados####
+###################################################################
+
+# Levanto la base de datos privados con la que trabajeremos
+df_k = pd.read_csv('base_kavak.csv', sep=";")
+
+# Observamos nuestro dataset
+df_k.info()
+df_k.shape
+# (2532, 15)
+
+# Armo una lista de los modelos disponibles en el dataset
+modelos = df_k['iin_model'].unique().tolist()
+
+
+
+
+##################################### Dataset de datos públicos####
+###################################################################
+
+# Levanto la base de datos públicos con la que trabajeremos
 df = pd.read_csv('data_publications.csv', sep=";")
 
 # Observamos nuestro dataset
@@ -16,37 +42,26 @@ df.shape
 # (51360, 9)
 
 # Evaluamos si tiene duplicados
+print(df.duplicated().sum())
+# 7624 filas duplicadas
+
+# Sacamos los valores duplicados
 df_new = df.drop_duplicates()
 df_new.shape
 # (43736, 9)
-# 7624 filas eliminadas
 
 # Evaluamos si tiene nulos
 df_new.isna().sum().sort_values()
 # provincia      9
 
-# Sacamos los datos que estan en USD
+# Sacamos aquellas publicadas con valor en Dolares
 df_new_ars = df_new.drop(df_new[df_new['currency']=='U$S'].index)
 df_new_ars.shape
 df_new_ars.info()
 df_new_ars.describe()
 # (35705, 9)
 
-##################################### Dataset de datos privados####
-
-# Changing the file read location to the location of the dataset
-df_k = pd.read_csv('base_kavak.csv', sep=";")
-
-# Observamos nuestro dataset
-df_k.info()
-df_k.shape
-# (2532, 15)
-
-modelos = df_k['iin_model'].unique().tolist()
-
-####################################################################
-
-# Sumamos la columna modelo
+# Sumamos la columna modelo al data set público (a partir de los datos privados)
 df_new_ars['modelo'] = pd.NaT
 i = 0
 for t in df['title']:
@@ -59,10 +74,13 @@ for t in df['title']:
 # Vemos la forma
 df_new_ars.shape
 # (35705, 10)
+
+# Evaluo valores con nulos
 df_new_ars.isna().sum().sort_values()
 # provincia         8
 # modelo         3836
 
+# Eliminamos los valores con modelo nulo
 df_new_ars = df_new_ars.drop(df_new_ars[df_new_ars['modelo'].isna()].index)
 df_new_ars.shape
 # (31869, 10)
@@ -71,7 +89,8 @@ df_new_ars.shape
 df_new_ars.to_csv('data_publications_process.csv',mode='a', sep=';', encoding='utf-8-sig', index=False)
 datos = df_new_ars
 
-################################################## Limpieza de datos
+################################################## Limpieza de datos##
+######################################################################
 
 # 1 - Sacamos los outliers
 
