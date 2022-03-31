@@ -8,7 +8,7 @@ Created on Tue Mar  1 10:05:22 2022
 # Archivo utilizado para procesar la base de datos con la que trabajaremos
 ###########################################################################
  
-
+#%%
 # Importo las liberías que utilizaremos
 import pandas as pd
 import numpy as np
@@ -89,7 +89,7 @@ df_new_ars.shape
 # Guardamos la información en un csv
 df_new_ars.to_csv('data_publications_process.csv',mode='a', sep=';', encoding='utf-8-sig', index=False)
 datos = df_new_ars
-
+#%%
 ################################################## Limpieza de datos##
 ######################################################################
 
