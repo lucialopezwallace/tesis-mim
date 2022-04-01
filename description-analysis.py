@@ -3,34 +3,48 @@
 ############################################################# 
 
 # Importo las librerias que utilizaremos
+#%%
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 import numpy as np
-
+#%%
 # Levantamos los datos procesados
 datos = pd.read_csv('data_publications_process.csv', sep=";")
-
+#datos.precio = datos.precio.astype(float)
+#%%
 # Observamos nuestro dataset
 datos.shape
 datos.info
 # (31869, 10)
+#%%
 
 # Variable precio ---------------------
 plt.title('Precio')
 plt.xlabel("precio ('000)")
 plt.hist(datos['precio']/1000, bins = 70)
 plt.show() 
-
+#%%
 # Cómo ver outliers
 sns.boxplot(x=datos['precio'])
 plt.show() 
 
+#%%
+# PRecio con Seaborn
+sns.displot(datos, x='precio')
+plt.show() 
+
+#%%
+
+
+#%%
 # Variable precio con logartimo ---------------------
 plt.title('Precio')
 plt.xlabel("precio ('000)")
 plt.hist(np.log(datos['precio']), bins = 70)
 plt.show() 
+
+#%%
 
 # Cómo ver outliers
 sns.boxplot(x=np.log(datos['precio']))
@@ -44,6 +58,14 @@ ax.set_xlabel('Año')
 ax.set_ylabel('Precio')
 plt.show()
 
+#%%
+# Otra manera de ver outliers para Precio & Año
+fig, ax = plt.subplots(figsize=(16,8))
+ax.scatter(datos['year'], np.log(datos['precio']))
+ax.set_xlabel('Año')
+ax.set_ylabel('Precio')
+plt.show()
+#%%
 # Otra manera de ver outliers para Precio & KM
 fig, ax = plt.subplots(figsize=(16,8))
 ax.scatter(datos['km'], datos['precio'])
@@ -51,13 +73,19 @@ ax.set_xlabel('KM')
 ax.set_ylabel('Precio')
 plt.show()
 
+fig, ax = plt.subplots(figsize=(16,8))
+ax.scatter(datos['km'], np.log(datos['precio']))
+ax.set_xlabel('KM')
+ax.set_ylabel('Precio')
+plt.show()
 
+#%%
 # Variable KMT --------------------------- 
 plt.title('Kilometros')
 plt.xlabel("KM")
 plt.hist(datos['km'], bins = 70)
 plt.show()
-
+#%%
 # Grafico los outliers
 sns.boxplot(x=datos['km'])
 plt.show()
@@ -82,7 +110,7 @@ sns.regplot(x="km", y="precio", data=datos,
 ax.set_title('Precio vs Kilometraje',
              fontsize=16, weight="bold")
 plt.show()
-
+#%%
 # Relación entre year & precio --------------------------- 
 
 fig, ax = plt.subplots()
@@ -93,7 +121,9 @@ sns.regplot(x="year", y="precio", data=datos,
 ax.set_title('Precio vs Año',
              fontsize=16, weight="bold")
 plt.show()
+#%%
 
+#%%
 # Relación entre marca & precio --------------------------- 
 
 marca_cnt = datos['marca'].value_counts(sort=False).sort_values(ascending=True)
@@ -121,7 +151,9 @@ precio_marca_bar.set_xlabel("Precio promedio")
 precio_marca_bar.set_title("Precio promedio por marca",
                   fontsize=16, weight="bold")
 plt.show()
+#%%
 
+#%%
 # Relación entre provincia & precio --------------------------- 
 
 provincia_cnt = datos['provincia'].value_counts(sort=False).sort_values(ascending=True)
@@ -147,7 +179,7 @@ precio_provincia_bar.set_xlabel("Precio promedio")
 precio_provincia_bar.set_title("Precio promedio por provincia",
                   fontsize=16, weight="bold")
 plt.show()
-
+#%%
 # Relación entre localidad & precio --------------------------- 
 
 loc_cnt = datos['localidad'].value_counts(sort=False).sort_values(ascending=True)
@@ -199,3 +231,4 @@ precio_mod_bar.set_xlabel("Precio promedio")
 precio_mod_bar.set_title("Precio promedio por localidad",
                   fontsize=16, weight="bold")
 plt.show()
+# %%
