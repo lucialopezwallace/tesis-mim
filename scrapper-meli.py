@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 19 17:52:19 2022
-
-@author: lulopezwalla
-"""
+# Archivo que levanta datos de Mercado Libre ################
+############################################################# 
 
 pageUrl= "https://listado.mercadolibre.com.ar/autos-usados"
 driver = webdriver.Firefox(executable_path = 'geckodriver')
@@ -107,3 +103,10 @@ for marca in marcas:
         print(url_page)
         parser_and_save_items(url_page,marca)
 
+# Para levantar la URL de la imagen
+# img = car_publication.find('img')
+
+# try:
+#    img_url = all_house_li[0].find('img')['data-src']
+# except:
+#    img_url = all_house_li[0].find('img')['src']

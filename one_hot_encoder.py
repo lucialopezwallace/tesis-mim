@@ -2,6 +2,7 @@
 # Archivo utilizado para crear la función de One Hot Encoding
 ############################################################# 
 #%%
+
 # Función auxiliar: Toma un df de variables categoricas y selección el top_x de categorias
 def one_hot_top_x(cat_df, variable,top_x_labels):
     for label in top_x_labels:
@@ -27,4 +28,5 @@ def one_hot_encoder(df,top_x):
     df = pd.concat([cat_df,num_df], axis =1)
     
     return df
+
 #%%

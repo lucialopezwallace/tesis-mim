@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 #%%
 # Levantamos los datos procesados
-datos = pd.read_csv('data_publications_process.csv', sep=";")
+datos = pd.read_excel('data_ready_to_model.xlsx')
 #datos.precio = datos.precio.astype(float)
 #%%
 # Observamos nuestro dataset
