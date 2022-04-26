@@ -2,14 +2,7 @@
 ############################################################### 
 
 #%%
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import StandardScaler
-from sklearn.compose import make_column_selector
-from sklearn.model_selection import cross_val_score
-from sklearn import metrics
+i
 
 #%%
 # Changing the file read location to the location of the dataset
@@ -84,30 +77,3 @@ print('Root Mean Squared Error:', round(np.sqrt(metrics.mean_squared_error(y_tes
 
 
 
-
-####################################################
-#### Prueba de datos de Kavak
-#%%
-# Separo en Y y X
-datos_kavak = datos[(datos['type_kavak'] == 1)] 
-datos_kavak = datos_kavak.drop('type_kavak',axis=1)
-datos_kavak = datos_kavak.drop('type_meli',axis=1)
-
-#separate the other attributes from the predicting attribute
-x_kavak = datos_kavak.drop('precio',axis=1)
-
-#separte the predicting attribute into Y for model training 
-y_kavak = datos_kavak['precio']
-
-#%%
-# Predigo las x_kavak
-y_pred_kavak_ln = model.predict(x_kavak)
-#%%
-
-#%%
-#  Saco exponencial de los valores de Y
-y_pred_kavak = np.exp(y_pred_kavak_ln)/1000
-#%%
-print('Mean Absolute Error:', round(metrics.mean_absolute_error(y_kavak, y_pred_kavak)/1000000,2))
-# Mean Absolute Error: 126.93
-#%%
